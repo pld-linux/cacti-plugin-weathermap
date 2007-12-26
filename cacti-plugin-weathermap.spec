@@ -1,4 +1,5 @@
-#TODO - config file, patches, package for not cacti plugin
+# TODO
+#  - config file, patches, package for not cacti plugin
 %define		namesrc	weathermap
 %include	/usr/lib/rpm/macros.perl
 Summary:	Plugin for Cacti - WeatherMap
@@ -22,6 +23,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Plugin for Cacti - Weathermap - is a network visualisation tool, to
 take data you already have and show you an overview of your network
 in map form.
+
 Support is built in for RRD, MRTG (RRD and old log-format), and
 tab-delimited text files. Other sources are via plugins or external
 scripts.
@@ -38,7 +40,7 @@ find '(' -name '*.php' -o -name '*.inc' ')' -print0 | xargs -0 sed -i -e 's,\r$,
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{webcactipluginroot}
-cp -aRf * $RPM_BUILD_ROOT%{webcactipluginroot}
+cp -a * $RPM_BUILD_ROOT%{webcactipluginroot}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
