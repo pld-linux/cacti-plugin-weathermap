@@ -3,7 +3,7 @@
 %define		namesrc	weathermap
 %include	/usr/lib/rpm/macros.perl
 Summary:	Plugin for Cacti - WeatherMap
-Summary(pl.UTF-8):	Wtyczka do Cacti - WeatherMap
+Summary(pl.UTF-8):	Wtyczka do Cacti - WeatherMap (mapa pogody)
 Name:		cacti-plugin-weathermap
 Version:	0.941
 Release:	0.1
@@ -20,16 +20,21 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		webcactipluginroot /usr/share/cacti/plugins/%{namesrc}
 
 %description
-Plugin for Cacti - Weathermap - is a network visualisation tool, to
-take data you already have and show you an overview of your network
-in map form.
+Weathermap plugin for Cacti is a network visualisation tool, to take
+data you already have and show you an overview of your network in map
+form.
 
 Support is built in for RRD, MRTG (RRD and old log-format), and
 tab-delimited text files. Other sources are via plugins or external
 scripts.
 
 %description -l pl.UTF-8
-Wtyczka do Cacti - Weathermap
+Wtyczka Weathermap dla Cacti to narzędzie do wizualizacji sieci,
+pobierające już istniejące dane i tworzące widok sieci w postaci mapy.
+
+Ma wbudowaną obsługę plików RRD, MRTG (RRD i starego formatu logów)
+oraz tekstowych rozdzielonych tabulacjami. Inne źródła są dostępne
+przez wtyczki lub zewnętrzne skrypty.
 
 %prep
 %setup -q -n %{namesrc}
