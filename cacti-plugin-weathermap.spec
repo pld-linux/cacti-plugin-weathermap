@@ -6,7 +6,7 @@ Summary:	Plugin for Cacti - WeatherMap
 Summary(pl.UTF-8):	Wtyczka do Cacti - WeatherMap (mapa pogody)
 Name:		cacti-plugin-weathermap
 Version:	0.95b
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	http://www.network-weathermap.com/files/php-%{namesrc}-%{version}.zip
@@ -41,6 +41,9 @@ przez wtyczki lub zewnętrzne skrypty.
 
 # undos the source
 find '(' -name '*.php' -o -name '*.inc' ')' -print0 | xargs -0 sed -i -e 's,\r$,,'
+
+# fix php path
+%{__sed} -i -e 's/\/local//g' %{namesrc}
 
 %install
 rm -rf $RPM_BUILD_ROOT
