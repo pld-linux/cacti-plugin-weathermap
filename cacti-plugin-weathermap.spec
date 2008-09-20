@@ -43,12 +43,12 @@ przez wtyczki lub zewnętrzne skrypty.
 find '(' -name '*.php' -o -name '*.inc' ')' -print0 | xargs -0 sed -i -e 's,\r$,,'
 
 # fix php path
-%{__sed} -i -e 's/\/local//g' %{namesrc}
+%{__sed} -i -e '1s,#!.*bin/php,#!%{_bindir}/php,' %{namesrc}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{webcactipluginroot}
-cp -a * $RPM_BUILD_ROOT%{webcactipluginroot}
+cp -a . $RPM_BUILD_ROOT%{webcactipluginroot}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
