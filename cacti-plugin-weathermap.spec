@@ -13,6 +13,7 @@ Source0:	http://www.network-weathermap.com/files/php-%{plugin}-%{version}.zip
 # Source0-md5:	6481970ad971dfe659eed535b440e678
 URL:		http://www.network-weathermap.com
 BuildRequires:	rpm-perlprov
+BuildRequires:	unzip
 Requires:	cacti
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
