@@ -1,25 +1,42 @@
 # TODO
 #  - config file, patches, package for not cacti plugin
+#  - system vera ttf fonts, jquery
 %define		plugin	weathermap
+%define		php_min_version 5.2.0
+%include	/usr/lib/rpm/macros.php
 %include	/usr/lib/rpm/macros.perl
 Summary:	Plugin for Cacti - WeatherMap
 Summary(pl.UTF-8):	Wtyczka do Cacti - WeatherMap (mapa pogody)
 Name:		cacti-plugin-weathermap
-Version:	0.95b
-Release:	2
+Version:	0.97a
+Release:	0.1
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	http://www.network-weathermap.com/files/php-%{plugin}-%{version}.zip
-# Source0-md5:	6481970ad971dfe659eed535b440e678
-URL:		http://www.network-weathermap.com
+# Source0-md5:	7eb70243fef163721423b3e87d7e84b4
+URL:		http://www.network-weathermap.com/
 BuildRequires:	rpm-perlprov
+BuildRequires:	rpm-php-pearprov >= 4.4.2-11
+BuildRequires:	rpmbuild(macros) >= 1.554
+BuildRequires:	sed >= 4.0
 BuildRequires:	unzip
 Requires:	cacti
+Requires:	php-common >= 4:%{php_min_version}
+Requires:	php-date
+Requires:	php-gd
+Requires:	php-mysql
+Requires:	php-pcre
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		cactidir		/usr/share/cacti
 %define		plugindir		%{cactidir}/plugins/%{plugin}
+
+# provided by package itself
+%define		_noautopear	pear(HTML_ImageMap.class.php) pear(Weathermap.class.php) pear(editor-config.php) pear(editor.inc.php)
+
+# put it together for rpmbuild
+%define		_noautoreq	%{?_noautophp} %{?_noautopear}
 
 %description
 Weathermap plugin for Cacti is a network visualisation tool, to take
@@ -39,18 +56,29 @@ oraz tekstowych rozdzielonych tabulacjami. Inne źródła są dostępne
 przez wtyczki lub zewnętrzne skrypty.
 
 %prep
-%setup -q -n %{plugin}
+%setup -qc
 
-# undos the source
-find '(' -name '*.php' -o -name '*.inc' ')' -print0 | xargs -0 sed -i -e 's,\r$,,'
+%undos -f php,inc
 
 # fix php path
-%{__sed} -i -e '1s,#!.*bin/php,#!%{_bindir}/php,' %{plugin}
+%{__sed} -i -e '1s,#!.*bin/php,#!%{_bindir}/php,' %{plugin}/%{plugin}
+
+mv %{plugin}/editor-config.php{-dist,}
+
+# in docs
+mv %{plugin}/{CHANGES,COPYING,README} .
+mv %{plugin}/docs .
+
+# junk not neccessary for plugin run
+mv %{plugin}/random-bits .
+mv %{plugin}/net-data.txt .
+mv %{plugin}/convert-to-dsstats.php .
+rm -rf %{plugin}/output
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{plugindir}
-cp -a . $RPM_BUILD_ROOT%{plugindir}
+install -d $RPM_BUILD_ROOT%{plugindir}/output
+cp -a %{plugin}/* $RPM_BUILD_ROOT%{plugindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
