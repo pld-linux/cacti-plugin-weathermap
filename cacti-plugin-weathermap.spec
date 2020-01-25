@@ -3,8 +3,6 @@
 #  - system vera ttf fonts, jquery
 %define		plugin	weathermap
 %define		php_min_version 5.2.0
-%include	/usr/lib/rpm/macros.php
-%include	/usr/lib/rpm/macros.perl
 Summary:	Plugin for Cacti - WeatherMap
 Summary(pl.UTF-8):	Wtyczka do Cacti - WeatherMap (mapa pogody)
 Name:		cacti-plugin-weathermap
